@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const GET_MEMBER = gql`
-  query GET_MEMBER($memberId: String!) {
+  query GET_MEMBER($memberId: bigint!) {
     member_by_pk(id: $memberId) {
       id
       email

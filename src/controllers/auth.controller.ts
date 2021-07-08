@@ -74,7 +74,7 @@ export class AuthController {
       name: string().notRequired(),
       email: string().email().notRequired(),
       password: string().notRequired(),
-      role: string().required().oneOf(memberRoles)
+      role: string().required().oneOf(memberRoles),
     }).required()
     try {
       await inputSchema.validate(req.body)
@@ -100,14 +100,14 @@ export class AuthController {
       member = await AuthController._addMember({
         role,
         username,
-        password: newPassword
+        password: newPassword,
       })
     } else {
       member = await AuthController._addMember({
         role,
         email,
         name,
-        password: newPassword
+        password: newPassword,
       })
     }
     return res.send({ code: 'SUCCESS', message: 'Generate a user successfully', result: member })
@@ -246,7 +246,7 @@ export class AuthController {
   public static logoutHandler: RequestHandler = async (req, res: ApiResponse) => {
     if (req.session) {
       delete req.session['biodb']
-      req.session.destroy(err => {})
+      req.session.destroy((err) => {})
     }
     return res.send({ code: 'SUCCESS', message: 'logout successfully', result: null })
   }
@@ -256,7 +256,7 @@ export class AuthController {
       variables: {
         memberId,
         loginAt: moment(),
-      }
+      },
     })
   }
   private static _getMemberByRefreshToken = async (refreshToken: string) => {
@@ -285,11 +285,11 @@ export class AuthController {
   }
   private static _signMemberJWT = (
     member: {
-      id: string
+      id: number
       name: string | null
       email: string | null
       username: string | null
-      role: string
+      role: string | null
     },
     expiresIn = '1 day',
   ) => {
@@ -300,19 +300,19 @@ export class AuthController {
         name: member.name,
         email: member.email,
         username: member.username,
-        role: member.role,
+        role: member.role || 'user',
       },
       expiresIn,
     )
   }
   private static _signJWT = (
     payload: {
-      sub: string
-      memberId: string
+      sub: number
+      memberId: number
       name: string | null
       email: string | null
       username: string | null
-      role: string
+      role: string | null
     },
     expiresIn = '1 day',
   ) => {
@@ -329,11 +329,7 @@ export class AuthController {
     }
     return jwt.sign(claim, process.env.HASURA_JWT_SECRET, { expiresIn })
   }
-  private static _sendResetPasswordEmail = async ({
-    memberId,
-  }: {
-    memberId: string
-  }) => {
+  private static _sendResetPasswordEmail = async ({ memberId }: { memberId: string }) => {
     if (!mgService) {
       throw new Error('no mail service')
     }

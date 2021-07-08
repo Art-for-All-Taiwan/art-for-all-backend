@@ -60,7 +60,7 @@ export const ADD_MEMBER = gql`
 `
 
 export const UPDATE_MEMBER = gql`
-  mutation UPDATE_MEMBER($memberId: String!, $updated: member_set_input) {
+  mutation UPDATE_MEMBER($memberId: bigint!, $updated: member_set_input) {
     update_member(_set: $updated, where: { id: { _eq: $memberId } }) {
       affected_rows
     }
@@ -68,7 +68,7 @@ export const UPDATE_MEMBER = gql`
 `
 
 export const UPDATE_LOGIN_AT = gql`
-  mutation UPDATE_LOGIN_AT($memberId: String!, $loginAt: timestamptz) {
+  mutation UPDATE_LOGIN_AT($memberId: bigint!, $loginAt: timestamptz) {
     update_member(where: { id: { _eq: $memberId } }, _set: { login_at: $loginAt }) {
       affected_rows
     }

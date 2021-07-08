@@ -9,19 +9,19 @@
 
 export interface REGISTER_MEMBER_insert_member_returning {
   __typename: "member";
-  id: string;
-  email: string | null;
-  username: string | null;
+  id: any;
+  email: string;
+  username: string;
   name: string | null;
-  role: string;
-  refresh_token: string;
-  password_hash: string;
+  role: string | null;
+  refresh_token: string | null;
+  password_hash: string | null;
 }
 
 export interface REGISTER_MEMBER_insert_member {
   __typename: "member_mutation_response";
   /**
-   * data of the affected rows by the mutation
+   * data from the rows affected by the mutation
    */
   returning: REGISTER_MEMBER_insert_member_returning[];
 }
@@ -51,20 +51,18 @@ export interface REGISTER_MEMBERVariables {
 
 export interface ADD_MEMBER_insert_member_returning {
   __typename: "member";
-  id: string;
-  email: string | null;
-  username: string | null;
+  id: any;
+  email: string;
+  username: string;
   name: string | null;
-  role: string;
-  refresh_token: string;
-  password_hash: string;
+  role: string | null;
   password: string | null;
 }
 
 export interface ADD_MEMBER_insert_member {
   __typename: "member_mutation_response";
   /**
-   * data of the affected rows by the mutation
+   * data from the rows affected by the mutation
    */
   returning: ADD_MEMBER_insert_member_returning[];
 }
@@ -97,7 +95,7 @@ export interface ADD_MEMBERVariables {
 export interface UPDATE_MEMBER_update_member {
   __typename: "member_mutation_response";
   /**
-   * number of affected rows by the mutation
+   * number of rows affected by the mutation
    */
   affected_rows: number;
 }
@@ -110,7 +108,7 @@ export interface UPDATE_MEMBER {
 }
 
 export interface UPDATE_MEMBERVariables {
-  memberId: string;
+  memberId: any;
   updated?: member_set_input | null;
 }
 
@@ -126,7 +124,7 @@ export interface UPDATE_MEMBERVariables {
 export interface UPDATE_LOGIN_AT_update_member {
   __typename: "member_mutation_response";
   /**
-   * number of affected rows by the mutation
+   * number of rows affected by the mutation
    */
   affected_rows: number;
 }
@@ -139,7 +137,7 @@ export interface UPDATE_LOGIN_AT {
 }
 
 export interface UPDATE_LOGIN_ATVariables {
-  memberId: string;
+  memberId: any;
   loginAt?: any | null;
 }
 
@@ -154,13 +152,13 @@ export interface UPDATE_LOGIN_ATVariables {
 
 export interface GET_MEMBER_member_by_pk {
   __typename: "member";
-  id: string;
-  email: string | null;
-  username: string | null;
+  id: any;
+  email: string;
+  username: string;
   name: string | null;
-  password_hash: string;
-  role: string;
-  refresh_token: string;
+  password_hash: string | null;
+  role: string | null;
+  refresh_token: string | null;
 }
 
 export interface GET_MEMBER {
@@ -171,7 +169,7 @@ export interface GET_MEMBER {
 }
 
 export interface GET_MEMBERVariables {
-  memberId: string;
+  memberId: any;
 }
 
 /* tslint:disable */
@@ -185,12 +183,12 @@ export interface GET_MEMBERVariables {
 
 export interface GET_MEMBER_LIST_member {
   __typename: "member";
-  id: string;
-  email: string | null;
-  username: string | null;
+  id: any;
+  email: string;
+  username: string;
   name: string | null;
-  password_hash: string;
-  role: string;
+  password_hash: string | null;
+  role: string | null;
 }
 
 export interface GET_MEMBER_LIST {
@@ -211,11 +209,11 @@ export interface GET_MEMBER_LIST {
 
 export interface GET_MEMBER_BY_REFRESH_TOKEN_member {
   __typename: "member";
-  id: string;
+  id: any;
   name: string | null;
-  email: string | null;
-  username: string | null;
-  role: string;
+  email: string;
+  username: string;
+  role: string | null;
 }
 
 export interface GET_MEMBER_BY_REFRESH_TOKEN {
@@ -240,13 +238,13 @@ export interface GET_MEMBER_BY_REFRESH_TOKENVariables {
 
 export interface GET_POSSIBLE_MEMBERS_member {
   __typename: "member";
-  id: string;
-  email: string | null;
-  username: string | null;
+  id: any;
+  email: string;
+  username: string;
   name: string | null;
-  password_hash: string;
-  refresh_token: string;
-  role: string;
+  password_hash: string | null;
+  refresh_token: string | null;
+  role: string | null;
 }
 
 export interface GET_POSSIBLE_MEMBERS {
@@ -274,9 +272,10 @@ export interface GET_POSSIBLE_MEMBERSVariables {
  * input type for updating data in table "member"
  */
 export interface member_set_input {
+  category?: number | null;
   created_at?: any | null;
   email?: string | null;
-  id?: string | null;
+  id?: any | null;
   login_at?: any | null;
   name?: string | null;
   password?: string | null;
