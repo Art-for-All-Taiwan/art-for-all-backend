@@ -23,19 +23,23 @@ const corsOptions: CorsOptions = {
   },
 }
 app.use(cors(corsOptions))
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || 'biodb',
-    store: new RedisStore({ client: redisClient }),
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      expires: moment().add(1, 'month').toDate(),
-      sameSite: 'none',
-      secure: true,
-    },
-  }),
-)
+const sessionConfig: session.SessionOptions = {
+  secret: process.env.SESSION_SECRET || 'artforall',
+  store: new RedisStore({ client: redisClient }),
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: moment().add(1, 'month').toDate(),
+  },
+}
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1)
+  if (sessionConfig.cookie) {
+    sessionConfig.cookie.sameSite = 'none'
+    sessionConfig.cookie.secure = true
+  }
+}
+app.use(session(sessionConfig))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(loggerMiddleware)
