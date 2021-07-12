@@ -21,6 +21,7 @@ export const REGISTER_MEMBER = gql`
         username
         name
         role
+        avatar_url
         refresh_token
         password_hash
       }
@@ -53,6 +54,7 @@ export const ADD_MEMBER = gql`
         username
         name
         role
+        avatar_url
         password
       }
     }

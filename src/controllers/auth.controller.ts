@@ -65,7 +65,14 @@ export class AuthController {
       code: 'SUCCESS',
       message: 'successfully register a new member',
       result: {
-        authToken: AuthController._signMemberJWT(member),
+        authToken: AuthController._signMemberJWT({
+          id: member.id,
+          name: member.name,
+          email: member.email,
+          username: member.username,
+          avatarUrl: member.avatar_url,
+          role: member.role,
+        }),
       },
     })
   }
@@ -197,7 +204,14 @@ export class AuthController {
         code: 'SUCCESS',
         message: 'login successfully',
         result: {
-          authToken: AuthController._signMemberJWT(member),
+          authToken: AuthController._signMemberJWT({
+            id: member.id,
+            name: member.name,
+            email: member.email,
+            username: member.username,
+            avatarUrl: member.avatar_url,
+            role: member.role,
+          }),
         },
       })
       .end()
@@ -289,6 +303,7 @@ export class AuthController {
       name: string | null
       email: string | null
       username: string | null
+      avatarUrl: string | null
       role: string | null
     },
     expiresIn = '1 day',
@@ -300,6 +315,7 @@ export class AuthController {
         name: member.name,
         email: member.email,
         username: member.username,
+        avatarUrl: member.avatarUrl,
         role: member.role || 'user',
       },
       expiresIn,
@@ -312,6 +328,7 @@ export class AuthController {
       name: string | null
       email: string | null
       username: string | null
+      avatarUrl: string | null
       role: string | null
     },
     expiresIn = '1 day',
@@ -337,7 +354,17 @@ export class AuthController {
     if (!member.email) {
       throw new Error(`no email found for user ${member.id}`)
     }
-    const resetPasswordToken = AuthController._signMemberJWT(member, '30 minutes')
+    const resetPasswordToken = AuthController._signMemberJWT(
+      {
+        id: member.id,
+        name: member.name,
+        email: member.email,
+        username: member.username,
+        avatarUrl: member.avatar_url,
+        role: member.role,
+      },
+      '30 minutes',
+    )
     const mgData = {
       from: `${process.env.APP_NAME} <noreply@${process.env.MAILGUN_DOMAIN}>`,
       to: member.email,

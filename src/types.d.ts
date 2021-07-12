@@ -14,6 +14,7 @@ export interface REGISTER_MEMBER_insert_member_returning {
   username: string;
   name: string | null;
   role: string | null;
+  avatar_url: string | null;
   refresh_token: string | null;
   password_hash: string | null;
 }
@@ -56,6 +57,7 @@ export interface ADD_MEMBER_insert_member_returning {
   username: string;
   name: string | null;
   role: string | null;
+  avatar_url: string | null;
   password: string | null;
 }
 
@@ -158,6 +160,7 @@ export interface GET_MEMBER_member_by_pk {
   name: string | null;
   password_hash: string | null;
   role: string | null;
+  avatar_url: string | null;
   refresh_token: string | null;
 }
 
@@ -188,6 +191,7 @@ export interface GET_MEMBER_LIST_member {
   username: string;
   name: string | null;
   password_hash: string | null;
+  avatar_url: string | null;
   role: string | null;
 }
 
@@ -214,6 +218,7 @@ export interface GET_MEMBER_BY_REFRESH_TOKEN_member {
   email: string;
   username: string;
   role: string | null;
+  avatar_url: string | null;
 }
 
 export interface GET_MEMBER_BY_REFRESH_TOKEN {
@@ -242,6 +247,7 @@ export interface GET_POSSIBLE_MEMBERS_member {
   email: string;
   username: string;
   name: string | null;
+  avatar_url: string | null;
   password_hash: string | null;
   refresh_token: string | null;
   role: string | null;
@@ -272,6 +278,7 @@ export interface GET_POSSIBLE_MEMBERSVariables {
  * input type for updating data in table "member"
  */
 export interface member_set_input {
+  avatar_url?: string | null;
   category?: number | null;
   created_at?: any | null;
   email?: string | null;

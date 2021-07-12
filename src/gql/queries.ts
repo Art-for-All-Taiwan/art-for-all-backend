@@ -9,6 +9,7 @@ export const GET_MEMBER = gql`
       name
       password_hash
       role
+      avatar_url
       refresh_token
     }
   }
@@ -22,6 +23,7 @@ export const GET_MEMBER_LIST = gql`
       username
       name
       password_hash
+      avatar_url
       role
     }
   }
@@ -35,6 +37,7 @@ export const GET_MEMBER_BY_REFRESH_TOKEN = gql`
       email
       username
       role
+      avatar_url
     }
   }
 `
@@ -46,6 +49,7 @@ export const GET_POSSIBLE_MEMBERS = gql`
       email
       username
       name
+      avatar_url
       password_hash
       refresh_token
       role
