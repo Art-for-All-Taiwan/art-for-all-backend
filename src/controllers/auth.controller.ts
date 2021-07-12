@@ -338,7 +338,7 @@ export class AuthController {
       'https://hasura.io/jwt/claims': {
         'x-hasura-allowed-roles': [payload.role],
         'x-hasura-default-role': payload.role,
-        'x-hasura-user-id': payload.memberId,
+        'x-hasura-user-id': payload.memberId.toString(),
       },
     }
     if (!process.env.HASURA_JWT_SECRET) {
