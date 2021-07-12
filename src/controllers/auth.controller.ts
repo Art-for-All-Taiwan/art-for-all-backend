@@ -310,7 +310,7 @@ export class AuthController {
   ) => {
     return AuthController._signJWT(
       {
-        sub: member.id,
+        sub: member.id.toString(),
         memberId: member.id,
         name: member.name,
         email: member.email,
@@ -323,7 +323,7 @@ export class AuthController {
   }
   private static _signJWT = (
     payload: {
-      sub: number
+      sub: string
       memberId: number
       name: string | null
       email: string | null
