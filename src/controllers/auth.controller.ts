@@ -14,7 +14,7 @@ import moment from 'moment'
 import crypto from 'crypto'
 
 export const BCRYPT_SALT = 8
-const memberRoles = ['general-manager', 'project-manager', 'observer', 'subject']
+const memberRoles = ['site-admin', 'basic-member']
 
 export class AuthController {
   public static registerHandler: RequestHandler = async (req, res: ApiResponse) => {
@@ -45,7 +45,7 @@ export class AuthController {
         email,
         name,
         password,
-        role: 'subject',
+        role: 'basic-member',
       })
       if (!member) {
         return res.send({ code: 'E_NO_MEMBER', message: 'member cannot be registered', result: null })
@@ -97,12 +97,12 @@ export class AuthController {
       return res.send({ code: 'E_UNAUTHORIZED', message: 'You cannot add user with higher role', result: null })
     }
     // Role higher than observer should have email & name
-    if (memberRoles.indexOf(role) < memberRoles.indexOf('subject') && !email && !name) {
+    if (memberRoles.indexOf(role) < memberRoles.indexOf('basic-member') && !email && !name) {
       return res.send({ code: 'E_INPUT', message: 'Please fill name & email', result: null })
     }
     const newPassword = password ? password : crypto.randomBytes(20).toString('hex').slice(0, 20)
     let member
-    if (role === 'subject') {
+    if (role === 'basic-member') {
       const username = Math.random().toString(36).substr(2, 9)
       member = await AuthController._addMember({
         role,
@@ -409,7 +409,7 @@ export class AuthController {
         email: profile.email,
         username: profile.username,
         role: profile.role,
-        password: profile.role === 'subject' ? profile.password : null,
+        password: profile.role === 'basic-member' ? profile.password : null,
         passwordHash,
       },
     })
